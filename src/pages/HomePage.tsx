@@ -215,39 +215,53 @@ export default function HomePage({ onNavigate, onScrollToVideo }: HomePageProps)
         <h2 className="text-4xl md:text-4xl font-black mb-12 text-center text-gray-900">Integrate with your favorite tools</h2>
         <div className="marquee-wrapper overflow-hidden relative w-full">
           <div className="marquee-track flex items-center gap-16 animate-marquee-scroll">
-            {/* Full sequence (set A) */}
-            <img src="/logo carousel integrations/facebook.png" alt="Facebook" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/google.png" alt="Google" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/linkedin.png" alt="LinkedIn" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/slack.png" alt="Slack" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/shippo.png" alt="Shippo" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/instagram.png" alt="Instagram" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/printful.png" alt="Printful" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/xero.png" alt="Xero" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/zapier.png" alt="Zapier" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/whatsapp.png" alt="WhatsApp" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/stripe.png" alt="Stripe" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/tiktok.png" alt="TikTok" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/shopify.png" alt="Shopify" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/quickbooks.png" alt="QuickBooks" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/clio.png" alt="Clio" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            
-            {/* Duplicate sequence (set A copy) for seamless loop */}
-            <img src="/logo carousel integrations/facebook.png" alt="Facebook" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/google.png" alt="Google" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/linkedin.png" alt="LinkedIn" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/slack.png" alt="Slack" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/shippo.png" alt="Shippo" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/instagram.png" alt="Instagram" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/printful.png" alt="Printful" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/xero.png" alt="Xero" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/zapier.png" alt="Zapier" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/whatsapp.png" alt="WhatsApp" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/stripe.png" alt="Stripe" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/tiktok.png" alt="TikTok" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/shopify.png" alt="Shopify" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/quickbooks.png" alt="QuickBooks" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
-            <img src="/logo carousel integrations/clio.png" alt="Clio" className="h-12 md:h-16 object-contain flex-shrink-0" loading="eager" decoding="sync" />
+            {/* Dynamic logo carousel - renders all logos from public/logo carousel integrations/ */}
+            {(() => {
+              // List of all available logos in the public directory
+              const logoFiles = [
+                'facebook.png',
+                'google.png',
+                'linkedin.png',
+                'slack.png',
+                'shippo.png',
+                'instagram.png',
+                'printful.png',
+                'xero.png',
+                'zapier.png',
+                'whatsapp.png',
+                'stripe.png',
+                'tiktok.png',
+                'shopify.png',
+                'quickbooks.png',
+                'clio.png'
+              ];
+              
+              // Function to convert filename to display name
+              const getDisplayName = (filename: string) => {
+                const name = filename.replace('.png', '');
+                return name.charAt(0).toUpperCase() + name.slice(1);
+              };
+              
+              // Create logo elements
+              const logoElements = logoFiles.map((filename, index) => (
+                <img 
+                  key={`logo-${index}`}
+                  src={`/logo carousel integrations/${filename}`} 
+                  alt={getDisplayName(filename)} 
+                  className="h-12 md:h-16 object-contain flex-shrink-0" 
+                  loading="eager" 
+                  decoding="sync" 
+                />
+              ));
+              
+              // Return both original and duplicate sets for seamless loop
+              return [
+                ...logoElements,
+                ...logoElements.map((element, index) => 
+                  React.cloneElement(element, { key: `logo-duplicate-${index}` })
+                )
+              ];
+            })()}
           </div>
         </div>
       </section>
